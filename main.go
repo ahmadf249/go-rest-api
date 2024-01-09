@@ -2,6 +2,8 @@ package main
 
 import (
 	"net/http"
+	"test/go-rest-api/controllers"
+	"test/go-rest-api/database"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,11 +22,14 @@ var images = []image{
 }
 
 func main() {
+	database.DatabaseConnection()
 	router := gin.Default()
 	router.GET("/images", getImages)
 	router.GET("/images/:publicId", getImagesByID)
 
-	router.Run("localhost:8080")
+	router.POST("/article", controllers.CreateArticle)
+
+	router.Run("localhost:5000")
 }
 
 func getImages(c *gin.Context) {
