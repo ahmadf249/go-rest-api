@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"log"
+	"test/go-rest-api/models"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -10,14 +11,6 @@ import (
 
 var DB *gorm.DB
 var err error
-
-type Article struct {
-	gorm.Model
-	ArticleID   int    `json:"article_id"`
-	Title       string `json:"title"`
-	Body        string `json:"body"`
-	IsPublished byte   `json:"is_published"`
-}
 
 func DatabaseConnection() {
 	host := "localhost"
@@ -34,7 +27,10 @@ func DatabaseConnection() {
 	)
 
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	DB.AutoMigrate(Article{})
+	DB.AutoMigrate(
+		&models.Article{},
+		&models.Image{},
+	)
 	if err != nil {
 		log.Fatal("Failed connection to database...", err)
 	}

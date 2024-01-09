@@ -3,12 +3,13 @@ package controllers
 import (
 	"net/http"
 	"test/go-rest-api/database"
+	"test/go-rest-api/models"
 
 	"github.com/gin-gonic/gin"
 )
 
 func CreateArticle(c *gin.Context) {
-	var article *database.Article
+	var article *models.Article
 	err := c.ShouldBind(&article)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -26,5 +27,22 @@ func CreateArticle(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"article": article,
 	})
-	return
 }
+
+/* func getImages(c *gin.Context) {
+c.IndentedJSON(http.StatusOK, images)
+}
+*/
+
+/* func getImagesByID(c *gin.Context) {
+	publicId := c.Param("publicId")
+
+	for _, a := range images {
+		if a.PublicID == publicId {
+			c.IndentedJSON(http.StatusOK, a)
+			return
+		}
+	}
+	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "images not found"})
+}
+*/
