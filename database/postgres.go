@@ -20,6 +20,7 @@ func DatabaseConnection() {
 	DB.AutoMigrate(
 		models.Article{},
 		models.Image{},
+		models.Video{},
 	)
 	if err != nil {
 		log.Fatal("Failed connection to database...", err)

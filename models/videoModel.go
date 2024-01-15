@@ -2,7 +2,7 @@ package models
 
 import "gorm.io/gorm"
 
-type Image struct {
+type Video struct {
 	gorm.Model
 	ID          int    `json:"id"`
 	Title       string `json:"title"`

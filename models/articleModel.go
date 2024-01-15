@@ -1,13 +1,15 @@
 package models
 
 import (
+	"time"
+
 	"gorm.io/gorm"
 )
 
 type Article struct {
 	gorm.Model
-	ArticleID   int    `json:"article_id"`
-	Title       string `json:"title"`
-	Body        string `json:"body"`
-	IsPublished byte   `json:"is_published"`
+	ID            int       `json:"id"`
+	Title         string    `json:"title"`
+	Content       string    `json:"content"`
+	PublishedDate time.Time `json:"published_date"`
 }
