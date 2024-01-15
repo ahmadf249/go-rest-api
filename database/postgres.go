@@ -28,8 +28,8 @@ func DatabaseConnection() {
 
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	DB.AutoMigrate(
-		&models.Article{},
-		&models.Image{},
+		models.Article{},
+		models.Image{},
 	)
 	if err != nil {
 		log.Fatal("Failed connection to database...", err)

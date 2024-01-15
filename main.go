@@ -1,17 +1,20 @@
 package main
 
 import (
+	"log"
 	"test/go-rest-api/controllers"
 	"test/go-rest-api/database"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
-// var images = []image{
-// 	{PublicID: "wl4go0mhaxymy7g", Tags: "Blue Dragon Awards", Source: "/images/", Filename: "eunsoo-1.jpg"},
-// 	{PublicID: "y0ld2emktilga35", Tags: "Twinkling Watermelon", Source: "/images/", Filename: "eunsoo-2.jpg"},
-// 	{PublicID: "unf96lz4r6og9zn", Tags: "APAN Awards", Source: "/images/", Filename: "eunsoo-3.jpg"},
-// }
+func init() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Failed to load env file")
+	}
+}
 
 func main() {
 	database.DatabaseConnection()
@@ -19,8 +22,11 @@ func main() {
 	// router.GET("/images", getImages)
 	// router.GET("/images/:publicId", getImagesByID)
 
-	router.POST("/article", controllers.CreateArticle)
-	router.POST("/image", controllers.InsertImage)
+	router.POST("api/article", controllers.CreateArticle)
+	router.POST("api/image", controllers.InsertImage)
+	router.GET("api/image/:PublicId", controllers.ViewImage)
+	router.GET("api/image", controllers.ViewImages)
+	router.DELETE("api/image/:PublicId", controllers.DeleteImages)
 
 	router.Run("localhost:5000")
 }
