@@ -10,10 +10,10 @@ import (
 
 func init() {
 	initializers.LoadEnv()
+	database.DatabaseConnection()
 }
 
 func main() {
-	database.DatabaseConnection()
 	router := gin.Default()
 	// router.GET("/images", getImages)
 	// router.GET("/images/:publicId", getImagesByID)

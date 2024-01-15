@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"log"
+	"os"
 	"test/go-rest-api/models"
 
 	"gorm.io/driver/postgres"
@@ -13,20 +14,9 @@ var DB *gorm.DB
 var err error
 
 func DatabaseConnection() {
-	host := "localhost"
-	port := "5432"
-	dbName := "postgres"
-	dbUser := "postgres"
-	password := "root"
-	dsn := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable",
-		host,
-		port,
-		dbUser,
-		dbName,
-		password,
-	)
-
+	dsn := os.Getenv("DATABASE_CREDENTIALS")
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+
 	DB.AutoMigrate(
 		models.Article{},
 		models.Image{},
